@@ -148,5 +148,32 @@ def delegate(session_attributes, slots):
     ]
 }
 
+def dispatch(intent_request):
+    """
+    Called when the user specifies an intent for this bot.
+    """
 
+    logger.debug('dispatch userId={}, intentName={}'.format(intent_request['userId'], intent_request['currentIntent']['name']))
+
+    intent_name = intent_request['currentIntent']['name']
+    # Dispatch to your bot's intent handlers
+    if intent_name == 'intent_name':
+        return intent_name(intent_request)
+
+
+    raise Exception('Intent with name ' + intent_name + ' not supporte etesffd')
+
+
+# --- Main handler ---
+
+
+def lambda_handler(event, context):
+    """
+    Route the incoming request based on intent.
+    The JSON body of the request is provided in the event slot.
+    ""
+    
+    time.tzset()
+    logger.debug('event.bot.name={}'.format(event['bot']['name']))
+    return dispatch(event)
 
